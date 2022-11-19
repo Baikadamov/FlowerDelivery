@@ -1,4 +1,3 @@
-
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <script
@@ -12,6 +11,29 @@
             integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
             crossorigin="anonymous"
     />
+    <style>
+        .cont{
+            position: relative;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        @media (min-width: 768px) {
+            .cont {
+                width: 750px;
+            }
+        }
+        @media (min-width: 992px) {
+            .cont {
+                width: 970px;
+            }
+        }
+        @media (min-width: 1200px) {
+            .cont {
+                width: auto;
+            }
+        }
+    </style>
 </head>
 <body style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
 <div class="sticky-top">
@@ -33,7 +55,7 @@
             </button>
             <div
                     class="collapse navbar-collapse justify-content-center"
-                    id="navbarCenteredExample"
+
             >
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <li class="nav-item" style="margin-right: 20px">
@@ -52,23 +74,131 @@
                     </li>
                     <li
                             class="nav-item"
-                            style="line-height: 20px; margin-right: 20px"
+                            style="line-height: 20px; margin-right: 40px ;"
                     >
                         <a class="nav-link active" aria-current="page" href="#"
-                        >Доставка цветов, шаров <br />
+                        >Доставка цветов, шаров <br/>
                             и подарков в Алматы
                         </a>
                     </li>
                     <li
                             class="nav-item"
-                            style="line-height: 40px; margin-right: 20px"
+                            style="line-height: 40px;margin-left: 40px; margin-right: 50px ; font-size: 18px;"
                     >
                         <a class="nav-link active" aria-current="page" href="#"
                         >Алматы</a
                         >
                     </li>
-                    <li class="nav-item" style="line-height: 40px">
-                        <a class="nav-link active" href="#">+7 (708) 494-19-56</a>
+                    <li class="nav-item" style="line-height: 40px ; margin-right: 20px;">
+                        <a class="nav-link active" href="#"><strong>+7 (708) 494-19-56</strong></a>
+                    </li>
+                    <li class="nav-item" style="margin-left:50px;margin-right: 10px">
+                        <a
+                                style="position: relative;  display: block;
+                  top:13px;
+                  margin-left: auto;
+                  margin-right: auto;
+                  width: 50%;  "
+                                class="navbar-brand"
+                                href="#"
+                        >
+                            <img
+                                    src="img/instagram.svg"
+                                    alt=""
+                                    width="25"
+                                    height="20"
+                            />
+                        </a>
+                    </li>
+                    <li class="nav-item" style="margin-right: 20px">
+                        <a
+                                style="position: relative;  display: block;
+                  top:13px;
+                  margin-left: auto;
+                  margin-right: auto;
+                  width: 50%;  "
+                                class="navbar-brand"
+                                href="#"
+                        >
+                            <img
+                                    src="img/whatsapp.svg"
+                                    alt=""
+                                    width="25"
+                                    height="20"
+                            />
+                        </a>
+                    </li>
+                    <li class="nav-item" style="margin-right: 20px;margin-left: 50px;">
+                        <a
+                                style="position: relative;  display: block;
+                  top:13px;
+                  margin-left: auto;
+                  margin-right: auto;
+                  width: 50%;  "
+                                class="navbar-brand"
+                                href="#"
+                        >
+                            <img
+                                    src="img/search.svg"
+                                    alt=""
+                                    width="25"
+                                    height="20"
+                            />
+                        </a>
+                    </li>
+                    <li class="nav-item" style="margin-left: 50px;margin-right: 20px">
+                        <a
+                                style="position: relative;  display: block;
+                  top:13px;
+                  margin-left: auto;
+                  margin-right: auto;
+                  width: 50%;  "
+                                class="navbar-brand"
+                                href="#"
+                        >
+                            <img
+                                    src="img/heart.svg"
+                                    alt=""
+                                    width="25"
+                                    height="20"
+                            />
+                        </a>
+                    </li>
+                    <li class="nav-item" style="margin-right: 20px">
+                        <a
+                                style="position: relative;  display: block;
+                  top:13px;
+                  margin-left: auto;
+                  margin-right: auto;
+                  width: 50%;  "
+                                class="navbar-brand"
+                                href="#"
+                        >
+                            <img
+                                    src="img/shopping-cart.svg"
+                                    alt=""
+                                    width="25"
+                                    height="20"
+                            />
+                        </a>
+                    </li>
+                    <li class="nav-item" style="margin-right: 20px">
+                        <a
+                                style="position: relative;  display: block;
+                  top:13px;
+                  margin-left: auto;
+                  margin-right: auto;
+                  width: 50%;  "
+                                class="navbar-brand"
+                                href="#"
+                        >
+                            <img
+                                    src="img/user.svg"
+                                    alt=""
+                                    width="25"
+                                    height="20"
+                            />
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -78,8 +208,8 @@
     <nav
             class="navbar navbar-expand-lg"
             style="
-          background:#7d9678 url(img/page-bg.png) center top;
-          box-shadow: 0px 10px 8px 0px rgba(34, 60, 80, 0.2); 
+          background:#7d9678 url(static/img/page-bg.png) center top;
+          box-shadow: 0px 10px 8px 0px rgba(34, 60, 80, 0.2);
           font-size: 14px;
           font-weight: 500;
         "
@@ -100,35 +230,46 @@
                     class="collapse navbar-collapse justify-content-center"
                     id="navbarCenteredExample"
             >
-                <ul class="navbar-nav mb-2 mb-lg-0 text-uppercase" >
-                    <li class="nav-item  " style="line-height: 40px ; "   >
-                        <a class="nav-link active text-white" href="#">Меню</a>
+                <ul class="navbar-nav mb-2 mb-lg-0 text-uppercase">
+                    <li class="nav-item  "
+                        style="line-height: 40px ; margin-right: 55px; background-color: #6a8864; border-radius: 10px; ">
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link  dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">
+                                    Меню </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#"> Submenu item 1</a></li>
+                                    <li><a class="dropdown-item" href="#"> Submenu item 2 </a></li>
+                                    <li><a class="dropdown-item" href="#"> Submenu item 3 </a></li>
+                                </ul>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="nav-item  " style="line-height: 40px ; "   >
+                    <li class="nav-item  " style="line-height: 40px ; margin-left: 50px;margin-right: 20px; ">
                         <a class="nav-link active text-white" href="#">Каталог</a>
                     </li>
-                    <li class="nav-item" style="line-height: 40px">
+                    <li class="nav-item" style="line-height: 40px;margin-right: 20px;">
                         <a class="nav-link active text-white" href="#">Розы</a>
                     </li>
-                    <li class="nav-item" style="line-height: 40px">
+                    <li class="nav-item" style="line-height: 40px;margin-right: 20px;">
                         <a class="nav-link active text-white" href="#">Пионы</a>
                     </li>
-                    <li class="nav-item" style="line-height: 40px">
+                    <li class="nav-item" style="line-height: 40px;margin-right: 20px;">
                         <a class="nav-link active text-white" href="#">В Коробке</a>
                     </li>
-                    <li class="nav-item" style="line-height: 40px">
+                    <li class="nav-item" style="line-height: 40px;margin-right: 20px;">
                         <a class="nav-link active text-white" href="#">Съедобные</a>
                     </li>
-                    <li class="nav-item" style="line-height: 40px">
+                    <li class="nav-item" style="line-height: 40px;margin-right: 20px;">
                         <a class="nav-link active text-white" href="#">Клубника</a>
                     </li>
-                    <li class="nav-item" style="line-height: 40px">
+                    <li class="nav-item" style="line-height: 40px;margin-right: 20px;">
                         <a class="nav-link active text-white" href="#">Акции</a>
                     </li>
-                    <li class="nav-item" style="line-height: 40px">
+                    <li class="nav-item" style="line-height: 40px;margin-right: 20px;">
                         <a class="nav-link active text-white" href="#">Шары</a>
                     </li>
-                    <li class="nav-item" style="line-height: 40px">
+                    <li class="nav-item" style="line-height: 40px;margin-right: 20px;">
                         <a class="nav-link active text-white" href="#">Оплтаты</a>
                     </li>
                     <li class="nav-item" style="line-height: 40px">
@@ -139,5 +280,76 @@
         </div>
     </nav>
 </div>
+<div style="display: flex;justify-content: center ;color:white; ">
+    <div class="cont">
+        <h1 style="position: absolute; top: 100px; left: 220px;font-size: 60px; font-weight: bold">Доставка цветов</h1>
+        <h1 style="position: absolute; top: 170px; left: 220px;font-size: 50px; font-weight: bolder">Алматы</h1>
+        <li style="position: absolute; top: 250px; left: 220px;font-size: 20px; ">Гарантия свежести букета на 7 дней!</li>
+        <button class="btn btn-dark btn-lg" style="position: absolute; top: 310px; left: 220px;font-size: 15px; ">Выбрать букет</button>
+        <img src="img/jb.jpg" width="100%" height="auto" alt="flower">
+    </div>
+</div>
+
+<div class="container">
+    <table class="table">
+        <thead class="table-header">
+        <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>SURNAME</th>
+            <th>AGE</th>
+            <th>PHONE NUMBER</th>
+            <th>ADDRESS</th>
+            <th>POSITION</th>
+            <th>SALARY $</th>
+            <th class="text-center align-content-center">INFORMATION</th>
+        </tr>
+        </thead>
+        <tbody  >
+        <tr th:each="bouquet : ${bouquets} ">
+            <td th:text="${bouquet.id}"></td>
+            <td th:text="${bouquet.name}"></td>
+            <td th:text="${bouquet.description}"></td>
+            <td th:text="${bouquet.price}"></td>
+            <td th:text="${bouquet.size}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+// make it as accordion for smaller screens
+        if (window.innerWidth > 992) {
+
+            document.querySelectorAll('.navbar .nav-item').forEach(function (everyitem) {
+
+                everyitem.addEventListener('mouseover', function (e) {
+
+                    let el_link = this.querySelector('a[data-bs-toggle]');
+
+                    if (el_link != null) {
+                        let nextEl = el_link.nextElementSibling;
+                        el_link.classList.add('show');
+                        nextEl.classList.add('show');
+                    }
+
+                });
+                everyitem.addEventListener('mouseleave', function (e) {
+                    let el_link = this.querySelector('a[data-bs-toggle]');
+
+                    if (el_link != null) {
+                        let nextEl = el_link.nextElementSibling;
+                        el_link.classList.remove('show');
+                        nextEl.classList.remove('show');
+                    }
+
+
+                })
+            });
+
+        }
+// end if innerWidth
+    });
+</script>
 </body>
 </html>
