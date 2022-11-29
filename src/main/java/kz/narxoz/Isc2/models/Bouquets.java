@@ -20,6 +20,16 @@ public class Bouquets {
   @Column(name = "name")
   private String name;
 
+  @Column(name = "b_image")
+  private String b_image;
+
+  @Column(name = "b_image2")
+  private String b_image2;
+
+  @Column(name = "b_image3")
+  private String b_image3;
+
+
   @Column(name = "description")
   private String description    ;
 
