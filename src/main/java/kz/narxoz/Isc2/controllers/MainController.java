@@ -1,13 +1,19 @@
 package kz.narxoz.Isc2.controllers;
 
+import kz.narxoz.Isc2.models.Auth.Users;
 import kz.narxoz.Isc2.models.Bouquets;
 import kz.narxoz.Isc2.repository.BouquetsRepository;
+import kz.narxoz.Isc2.services.impl.UserServices;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +31,9 @@ public class MainController {
   @Autowired
   private BouquetsRepository bouquetsRepository;
 
+  @Autowired
+  private UserServices userServices;
+
 
   @Value("${file.bouquets.viewPath}")
   private String viewPath;
@@ -39,13 +48,28 @@ public class MainController {
   @GetMapping(value = "/")
   public String indexPage(Model model) {
     List<Bouquets> bouquets = bouquetsRepository.findAll();
+    model.addAttribute("currentUser" ,getCurrentUser());
     model.addAttribute("bouquets", bouquets);
     return "index";
   }
 
   @GetMapping(value = "/addBouquet")
-  public String addPage() {
+  public String addPage(Model model) {
+    model.addAttribute("currentUser" ,getCurrentUser());
     return "addBouquet";
+  }
+
+  @GetMapping(value = "/login")
+  public String login(Model model) {
+    model.addAttribute("currentUser" ,getCurrentUser());
+    return "login";
+  }
+
+  @GetMapping(value = "/profile")
+  @PreAuthorize("isAuthenticated()")
+  public String profile(Model model) {
+    model.addAttribute("currentUser" ,getCurrentUser());
+    return "profile";
   }
 
 
@@ -135,6 +159,7 @@ public class MainController {
   @GetMapping(value = "/detailsBouquet{id}")
   public String details(@PathVariable(name = "id") Long id, Model model) {
     Bouquets bouquets = bouquetsRepository.findById(id).orElse(null);
+    model.addAttribute("currentUser" ,getCurrentUser());
     model.addAttribute("bouquets", bouquets);
     return "detailsBouquets";
   }
@@ -204,6 +229,42 @@ public class MainController {
       return "redirect:/";
     }
     return "redirect:/";
+  }
+
+  @GetMapping(value = "/register")
+  public String register(Model model){
+    model.addAttribute("currentUser",getCurrentUser());
+    return "register";
+  }
+
+  @PostMapping(value = "/register")
+  public String toRegister(@RequestParam(name = "user_email") String email,
+                           @RequestParam(name = "user_password") String password,
+                           @RequestParam(name = "user_rePassword") String rePassword,
+                           @RequestParam(name = "user_fullName") String fullName){
+
+    if (password.equals(rePassword)){
+      Users newUser = new Users();
+      newUser.setPassword(password);
+      newUser.setFull_name(fullName);
+      newUser.setEmail(email);
+
+      if (userServices.createUser(newUser)!=null){
+        return "redirect:/profile";
+      }
+    }
+
+    return "redirect:/register?error";
+  }
+
+
+  private Users getCurrentUser(){
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    if(!(authentication instanceof AnonymousAuthenticationToken)){
+      Users currentUser = (Users) authentication.getPrincipal();
+      return currentUser;
+    }
+    return null;
   }
 
 }

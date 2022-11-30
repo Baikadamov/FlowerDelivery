@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{'/css/bootstrap.min.css'}">
+    <title>Title</title>
+</head>
+<body>
+
+<!--navbar-->
+<div class="sticky-top">
+    <nav
+            class="navbar navbar-expand-lg"
+            style="height: 60px; background-color: #f7f0ec"
+    >
+        <div class="container-fluid">
+            <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-mdb-toggle="collapse"
+                    data-mdb-target="#navbarCenteredExample"
+                    aria-controls="navbarCenteredExample"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+            >
+                <i class="fas fa-bars"></i>
+            </button>
+            <div
+                    class="collapse navbar-collapse justify-content-center"
+
+            >
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item" style="margin-right: 20px">
+                        <a
+                                style="position: relative; top: 9px"
+                                class="navbar-brand"
+                                th:href="@{'/'}"
+                        >
+                            <img
+                                    src="img/flower-svgrepo-com (1).svg"
+                                    alt=""
+                                    width="45"
+                                    height="40"
+                            />
+                        </a>
+                    </li>
+                    <li
+                            class="nav-item"
+                            style="line-height: 20px; margin-right: 40px ;"
+                    >
+                        <a class="nav-link active" aria-current="page" th:href="@{'/'}"
+                        >Доставка цветов, шаров <br/>
+                            и подарков в Алматы
+                        </a>
+                    </li>
+                    <li
+                            class="nav-item"
+                            style="line-height: 40px;margin-left: 40px; margin-right: 50px ; font-size: 18px;"
+                    >
+                        <a class="nav-link active" aria-current="page" href="#"
+                        >Алматы</a
+                        >
+                    </li>
+                    <li class="nav-item" style="line-height: 40px ; margin-right: 20px;">
+                        <a class="nav-link active" href="#"><strong>+7 (708) 494-19-56</strong></a>
+                    </li>
+                    <li class="nav-item" style="margin-left:50px;margin-right: 10px;line-height: 10px ;">
+                        <a
+                                style="position: relative;  display: block;
+                  top:13px;
+                  margin-left: auto;
+                  margin-right: auto;
+                  width: 50%;  "
+                                class="navbar-brand"
+                                href="#"
+                        >
+                            <img
+                                    src="img/instagram.svg"
+                                    alt=""
+                                    width="25"
+                                    height="20"
+                            />
+                        </a>
+                    </li>
+                    <li class="nav-item" style="margin-right: 20px;line-height: 10px ;">
+                        <a
+                                style="position: relative;  display: block;
+                  top:13px;
+                  margin-left: auto;
+                  margin-right: auto;
+                  width: 50%;  "
+                                class="navbar-brand"
+                                href="#"
+                        >
+                            <img
+                                    src="img/whatsapp.svg"
+                                    alt=""
+                                    width="25"
+                                    height="20"
+                            />
+                        </a>
+                    </li>
+                    <li class="nav-item" style="margin-right: 20px;margin-left: 50px;line-height: 10px ;">
+                        <a
+                                style="position: relative;  display: block;
+                  top:13px;
+                  margin-left: auto;
+                  margin-right: auto;
+                  width: 50%;  "
+                                class="navbar-brand"
+                                href="#"
+                        >
+                            <img
+                                    src="img/search.svg"
+                                    alt=""
+                                    width="25"
+                                    height="20"
+                            />
+                        </a>
+                    </li>
+                    <li class="nav-item" style="margin-left: 50px;margin-right: 20px; line-height: 10px ;">
+                        <a
+                                style="position: relative;  display: block;
+                  top:13px;
+                  margin-left: auto;
+                  margin-right: auto;
+                  width: 50%;  "
+                                class="navbar-brand"
+                                href="#"
+                        >
+                            <img
+                                    src="img/heart.svg"
+                                    alt=""
+                                    width="25"
+                                    height="20"
+                            />
+                        </a>
+                    </li>
+                    <li class="nav-item" style="margin-right: 20px; line-height: 10px ;">
+                        <a
+                                style="position: relative;  display: block;
+                  top:13px;
+                  margin-left: auto;
+                  margin-right: auto;
+                  width: 50%;  "
+                                class="navbar-brand"
+                                href="#"
+                        >
+                            <img
+                                    src="img/shopping-cart.svg"
+                                    alt=""
+                                    width="25"
+                                    height="20"
+                            />
+                        </a>
+                    </li>
+                    <li class="nav-item" style="margin-right: 20px;line-height: 10px ;">
+                        <a
+                                style="position: relative;  display: block;
+                  top:13px;
+                  margin-left: auto;
+                  margin-right: auto;
+                  width: 50%;  "
+                                class="navbar-brand"
+                                th:href="@{'/profile'}"
+                        >
+                            <img
+                                    src="img/user.svg"
+                                    alt=""
+                                    width="25"
+                                    height="20"
+                            />
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <nav
+            class="navbar navbar-expand-lg"
+            style="
+          background:#7d9678 url(static/img/page-bg.png) center top;
+          height: 60px;
+          font-size: 14px;
+          font-weight: 500;
+        "
+    >
+        <div class="container-fluid">
+            <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-mdb-toggle="collapse"
+                    data-mdb-target="#navbarCenteredExample"
+                    aria-controls="navbarCenteredExample"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+            >
+                <i class="fas fa-bars"></i>
+            </button>
+            <div
+                    class="collapse navbar-collapse justify-content-center"
+                    id="navbarCenteredExample"
+            >
+                <ul class="navbar-nav mb-2 mb-lg-0 text-uppercase">
+                    <li class="nav-item  "
+                        style="line-height: 40px ; margin-right: 55px; background-color: #6a8864; border-radius: 10px; ">
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link  dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">
+                                    Меню </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#"> Submenu item 1</a></li>
+                                    <li><a class="dropdown-item" href="#"> Submenu item 2 </a></li>
+                                    <li><a class="dropdown-item" href="#"> Submenu item 3 </a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item  " style="line-height: 40px ; margin-left: 50px;margin-right: 20px; ">
+                        <a class="nav-link  nitem active text-white" href="#">Каталог</a>
+                    </li>
+                    <li class="nav-item " style="line-height: 40px;margin-right: 20px;">
+                        <a class="nav-link nitem active text-white" href="#">Розы</a>
+                    </li>
+                    <li class="nav-item" style="line-height: 40px;margin-right: 20px;">
+                        <a class="nav-link nitem active text-white" href="#">Пионы</a>
+                    </li>
+                    <li class="nav-item" style="line-height: 40px;margin-right: 20px;">
+                        <a class="nav-link nitem active text-white" href="#">В Коробке</a>
+                    </li>
+                    <li class="nav-item" style="line-height: 40px;margin-right: 20px;">
+                        <a class="nav-link  nitem active text-white" href="#">Съедобные</a>
+                    </li>
+                    <li class="nav-item" style="line-height: 40px;margin-right: 20px;">
+                        <a class="nav-link nitem active text-white" href="#">Клубника</a>
+                    </li>
+                    <li class="nav-item" style="line-height: 40px;margin-right: 20px;">
+                        <a class="nav-link nitem active text-white" href="#">Акции</a>
+                    </li>
+                    <li class="nav-item" style="line-height: 40px;margin-right: 20px;">
+                        <a class="nav-link nitem active text-white" href="#">Шары</a>
+                    </li>
+                    <li class="nav-item" style="line-height: 40px;margin-right: 20px;">
+                        <a class="nav-link  nitem active text-white" href="#">Оплтаты</a>
+                    </li>
+                    <li class="nav-item" style="line-height: 40px">
+                        <a class="nav-link nitem active text-white    " href="#">Контакты</a>
+                    </li>
+                    <li class="nav-item" style="line-height: 40px">
+                        <a class="nav-link nitem active text-white    " th:href="@{'/addBouquet'}">Admin Panel</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<!--main part-->
+<div class="col-12" layout:fragment="mainContent">
+</div>
+
+<!--footer-->
+<div style="width: 100%; height:auto; background:#F9F9F9">
+    <div class="mb-0  " style="background-color: #f7f0ec; width: 100%">
+        <div class="container" style="padding: 10px 40px 10px 40px">
+            <footer class="text-center text-secondary">
+                <div class="pb-0">
+                    <section>
+                        <img
+                                src="img/flower-svgrepo-com (1).svg"
+                                alt=""
+                                width="45"
+                                height="40"
+                                style="margin-right: 50px"
+                        />
+                        <a
+                                class="btn btn-floating m-1"
+                                href="#!"
+                                role="button"
+                                style="font-size: 13px"
+                        >КАТАЛОГ</a
+                        >
+                        <a
+                                class="btn btn-floating m-1"
+                                href="#!"
+                                role="button"
+                                style="font-size: 13px"
+                        >
+                            РОЗЫ</a
+                        >
+                        <a
+                                class="btn btn-floating m-1"
+                                href="#!"
+                                role="button"
+                                style="font-size: 13px"
+                        >ПИОНЫ</a
+                        >
+                        <a
+                                class="btn btn-floating m-1"
+                                href="#!"
+                                role="button"
+                                style="font-size: 13px"
+                        >
+                            В КОРОБКЕ</a
+                        >
+                        <a
+                                class="btn btn-floating m-1"
+                                href="#!"
+                                role="button"
+                                style="font-size: 13px"
+                        >СЪЕДОБНЫЕ</a
+                        >
+                        <a
+                                class="btn btn-floating m-1"
+                                href="#!"
+                                role="button"
+                                style="font-size: 13px"
+                        >
+                            КЛУБНИКА</a
+                        >
+                        <a
+                                class="btn btn-floating m-1"
+                                href="#!"
+                                role="button"
+                                style="font-size: 13px"
+                        >
+                            АКЦИИ</a
+                        >
+                        <a
+                                class="btn btn-floating m-1"
+                                href="#!"
+                                role="button"
+                                style="font-size: 13px"
+                        >ВОЗВРАТ</a
+                        >
+                        <a
+                                class="btn btn-floating m-1"
+                                href="#!"
+                                role="button"
+                                style="font-size: 13px"
+                        >
+                            В КОРОБКЕ</a
+                        >
+                        <a
+                                class="btn btn-floating m-1"
+                                href="#!"
+                                role="button"
+                                style="font-size: 13px"
+                        >ШАРЫ</a
+                        >
+                        <a
+                                class="btn btn-floating m-1"
+                                href="#!"
+                                role="button"
+                                style="font-size: 13px"
+                        >
+                            ОПЛАТА</a
+                        >
+                        <a
+                                class="btn btn-floating m-1"
+                                href="#!"
+                                role="button"
+                                style="font-size: 13px"
+                        >
+                            КОНТАКТЫ</a
+                        >
+                        <hr />
+                    </section>
+
+                    <div style="display: flex; justify-content: center">
+                        <div style="width: 70%">
+                            <div class="text-start" style="margin-left: 10px;">
+                                <a
+                                        class="btn btn-outline-dark  btn-floating m-1"
+                                        href="#!"
+                                        role="button"
+                                        style="font-size: 15px;"
+                                >
+                                    Наверх</a
+                                >
+                            </div>
+                        </div>
+                        <div style="width: 30%">
+                            <div class="text-end">
+                                <a
+                                        class="btn btn-floating m-1"
+                                        href="#!"
+                                        role="button"
+                                        style="font-size: 15px"
+                                >
+                                    87775094248</a
+                                >
+                                <a
+                                        class="btn btn-floating m-1"
+                                        href="#!"
+                                        role="button"
+                                        style="font-size: 15px"
+                                >
+                                    <img src="img/whatsapp.svg" alt="" width="25" height="20"
+                                    /></a>
+                                <a
+                                        class="btn btn-floating m-1"
+                                        href="#!"
+                                        role="button"
+                                        style="font-size: 15px"
+                                >
+                                    <img
+                                            src="img/instagram.svg"
+                                            alt=""
+                                            width="25"
+                                            height="20"
+                                    /> </a
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <div style="background: #7d9678 url(static/img/page-bg.png) center top">
+        <div class="container" style="padding: 10px 40px 10px 40px">
+            <section class="    ">
+                <div style="display: flex; justify-content: center">
+                    <div class="text-start" style="width: 64%">
+                        <a
+                                class="btn btn-floating m-1 text-white"
+                                href="#!"
+                                role="button"
+                                style="font-size: 16px"
+                        >Публичная оферта</a
+                        >
+                        <a
+                                class="btn btn-floating m-1 text-white"
+                                href="#!"
+                                role="button"
+                                style="font-size: 16px"
+                        >
+                            Талон ИП</a
+                        >
+                        <a
+                                class="btn btn-floating m-1 text-white"
+                                href="#!"
+                                role="button"
+                                style="font-size: 16px"
+                        >Лицензия
+                        </a>
+                        <a
+                                class="btn btn-floating m-1 text-white"
+                                href="#!"
+                                role="button"
+                                style="font-size: 16px"
+                        >Политика конфиденциальности
+                        </a>
+                    </div>
+                    <div class="text-end" style="width: 36%">
+                        <p
+                                class="btn btn-floating m-1 text-white"
+                                href="#!"
+                                role="button"
+                                style="font-size: 16px"
+                        >
+                            2021 | Pro-buket | Все права защищены
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script type="text/javascript" th:src="@{'/js/bootstrap.bundle.js'}"></script>
+</html>

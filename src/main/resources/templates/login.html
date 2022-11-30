@@ -1,0 +1,110 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/main.html">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{'/css/bootstrap.min.css'}">
+
+    <title>Title</title>
+    <style>
+        .form {
+            height: 46px;
+            font-size: 15px;
+            padding: 5px 15px;
+            width: 100%;
+            color: #414141;
+            border: solid 1px #e8e8e8;
+            background: #fff;
+            font: 16px px "Gilroy Black", sans-serif;
+            margin: 0;
+            border-radius: 0;
+            outline: none;
+        }
+
+        .form:hover {
+            border-color: #7a9874;
+        }
+
+        .labels {
+            display: block;
+            color: #414141;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1;
+            padding: 0 0 7px 0;
+        }
+
+        .Ins {
+            color: #414141;
+            font: 600 25px px "Berlingske Serif", sans-serif;
+            line-height: 1.35;
+            padding: 0 0 29px 0;
+            margin: 0;
+        }
+
+        .btnIn {
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            width: 195px;
+            min-height: 65px;
+            color: #fff;
+            font: 15px "Gilroy", sans-serif;
+            line-height: 20px;
+            text-transform: uppercase;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            vertical-align: top;
+            padding: 10px 20px;
+            margin: 0 0 20px 0;
+            border: solid 1px #7a9874;
+            background: #7a9874;
+            border-radius: 5px;
+            transition: all 200ms ease 0ms;
+            box-sizing: border-box;
+        }
+
+        .btnIn:hover {
+            border: 1px solid #7a9874;
+        }
+    </style>
+</head>
+<body style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
+<div layout:fragment="mainContent">
+
+    <div class="container" style="padding-left: 100px; padding-right: 100px;margin-top: 60px;margin-bottom: 120px">
+        <div style="font-size: 16px; letter-spacing: 1px; display: flex">
+            <span style="margin-right: 15px"
+            ><a th:href="@{'/'}" class="nav-link link-secondary"> Главная страница </a>
+            </span>
+            <span style="margin-right: 15px" class="text-muted"> ></span>
+            <span class="nav-link active" style="margin-right: 15px"
+            >Личный кабинет</span
+            >
+        </div>
+        <hr/>
+        <h3 class="Ins">Вход</h3>
+
+        <div class="mx-auto col-12">
+            <form th:action="@{'/signin'}" method="post">
+                <div>
+                    <label class="labels"> Email пользователя * </label>
+                    <input type="email" class="form" required placeholder="insert email" name="user_email"/>
+                </div>
+                <div class="mt-3">
+                    <label class="labels" style="font-weight: 500"> Пароль * </label>
+                    <input type="password" class="form" required placeholder="insert password"
+                           name="user_password"/>
+                </div>
+                <div class="mt-3">
+                    <button class="btnIn">Войти</button>
+                </div>
+                <a class="nav-link active" th:href="@{'/register'}"> Регистрация</a>
+            </form>
+        </div>
+    </div>
+
+</div>
+</body>
+<script type="text/javascript" th:src="@{'/js/bootstrap.bundle.js'}"></script>
+</html>
