@@ -189,10 +189,10 @@
 
     </style>
 </head>
-<body style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
-<div layout:fragment="mainContent">
+<body style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif"  >
+<div layout:fragment="mainContent" >
 
-    <div class="container mt-2" style="padding:10px 80px 10px 80px ">
+    <div class="container mt-2"  style="padding:10px 80px 10px 80px ">
         <div class="container" style="font-size: 16px; letter-spacing: 1px;">
             <span style="margin-right: 15px;"><a href="" class="link-secondary"> Доставка цветов </a>  </span>
             <span style="margin-right: 15px;" class="text-muted"> ></span>
@@ -203,28 +203,24 @@
         </div>
         <div style="display:flex ; margin-top: 30px;">
             <div class="container" style="width:30%;   ">
-                <div class="main_image"><img th:src="@{'/viewphoto/'+ ${bouquets.b_image}}" id="main_product_image"
+                <div class="main_image"><img th:src="@{'/viewphoto/'+ ${edibleBouquet.image}}" id="main_product_image"
                                              width="350"></div>
-                <!--                <div class="thumbnail_images">-->
-                <!--                    <ul id="thumbnail">-->
-                <!--                        <li><img onclick="changeImage(this)" th:src="@{'/viewphoto/'+ ${bouquets.b_image}}" width="62">-->
-                <!--                        </li>-->
-                <!--                        <li><img onclick="changeImage(this)" th:src="@{'/viewphoto/'+ ${bouquets.b_image2}}" width="62">-->
-                <!--                        </li>-->
-                <!--                        <li><img onclick="changeImage(this)" th:src="@{'/viewphoto/'+ ${bouquets.b_image3}}" width="62">-->
-                <!--                        </li>-->
-                <!--                    </ul>-->
-                <!--                </div>-->
+                <div class="thumbnail_images">
+                    <ul id="thumbnail">
+                        <li><img onclick="changeImage(this)" th:src="@{'/viewphoto/'+ ${edibleBouquet.image}}" width="62">
+                        </li>
+                    </ul>
+                </div>
             </div>
             <div class="container" style="width:70%; padding-left: 20px; ">
                 <div style="display:flex ; ">
                     <div style="width:85%">
-                        <h2 style="margin-top: 8px;" th:text="${bouquets.name}">
+                        <h2 style="margin-top: 8px;" th:text="${edibleBouquet.name}">
                         </h2>
                     </div>
                     <div style="width: 15%;">
-                        <h5 style="background-color: #E2F8DE; margin-top: 24px; padding-left: 29%;font-size: 18px; "
-                            th:text="${bouquets.status.status}"></h5>
+                        <h5 style="background-color: #E2F8DE; margin-top: 24px; padding-left: 30%;font-size: 18px; "> В
+                            наличии</h5>
                     </div>
                 </div>
                 <div style="display:flex ; ">
@@ -245,16 +241,15 @@
                     <img src="img/star.svg" style="margin-bottom: 3px;" width="18px" height="18px" alt="">
                     <span style="font-size: 15px; margin-left: 10px;" class="text-muted">/34 Отзыва</span>
                 </div>
-                <span style="font-size: 25px;">Цена: </span>
-                <span style="color:#E9BA9C; font-size: 35px;" th:text="${bouquets.price}"></span>
-                <span style="color:#E9BA9C; font-size: 35px;"> ₸</span>
+                <span style="font-size: 25px;">Цена: </span> <span style="color:#E9BA9C; font-size: 35px;"
+                                                                   th:text="${edibleBouquet.price}">   </span> <span
+                    style="color:#E9BA9C; font-size: 35px;">  ₸</span>
                 <div class="mt-2" sec:authorize="hasAnyRole('ROLE_MODERATOR')">
                     <a class="btn btn-sm btn-danger" data-bs-toggle="modal"
                        href="#exampleModalToggle" role="button">EDIT</a>
                 </div>
-                <hr>
                 <span style="font-weight: bold; font-size: 18px;">Состав:</span><span style="font-size: 18px;"
-                                                                                      th:text="${bouquets.composition}">  </span>
+                                                                                      th:text="${edibleBouquet.composition}">  </span>
                 <div class="mt-3">
                     <button class="btn  " style="background-color: #AED5A6 ; width: 150px;">S стандарт</button>
                     <button class="btn " style="background-color: #F3E5DC;width: 150px;">М (+30% цветов)</button>
@@ -271,7 +266,7 @@
             </div>
         </div>
 
-        <div class="container mt-3  " style="padding:10px">
+        <div class="container mt-3 " style="padding:  10px">
             <div class="tabset ">
                 <!-- Tab 1 -->
                 <input type="radio" name="tabset" id="tab1" aria-controls="marzen" checked>
@@ -286,7 +281,7 @@
                 <div class="tab-panels">
                     <section id="marzen" class="tab-panel">
                         <h2>Описание</h2>
-                        <p th:text="${bouquets.description}"> As the name suggests, brewed as a stronger “March beer” in
+                        <p th:text="${edibleBouquet.description}"> As the name suggests, brewed as a stronger “March beer” in
                             March
                             and
                             lagered in cold caves over the summer. Modern versions trace back to the lager developed by
@@ -388,22 +383,22 @@
         <div class="container mt-5 mb-5" style="padding:10px 90px 10px 90px">
             <h1 class="mt-5">Может быть интересно</h1>
             <div class="row hidden-md-up">
-                <div class="col-md-3" style="margin-top: 25px" th:each="flower : ${edibleBouquets}">
+                <div class="col-md-3" style="margin-top: 25px" th:each="bouquet : ${bouquets}">
                     <div class="card h-100 " style="background-color: #f3ebe5; ">
                         <div class="card-body" style="padding-bottom: 0px">
-                            <img class="card-img-top" th:src="@{'/viewphoto/'+ ${flower.image}}"/>
+                            <img class="card-img-top" th:src="@{'/viewphoto/'+ ${bouquet.b_image}}"/>
                             <h4 class="card-title" style="font-size: 25px; font-weight: bold"
-                                th:text="${flower.name}"></h4>
-                            <p class="card-text p-y-1" th:text="${flower.description}"></p>
+                                th:text="${bouquet.name}"></h4>
+                            <p class="card-text p-y-1" th:text="${bouquet.status.status}"></p>
                             <p style="font-size: 24px; font-weight:400" class="card-text p-y-1"
-                               th:text="${flower.price}">
-                                12120
+                               th:text="${bouquet.price} ">
+                                <span>₸</span>
                             </p>
                         </div>
-                        <div style="display:flex;justify-content:center; padding: 5px 10px  ">
+                        <div style="display:flex;justify-content:center; padding: 5px 10px ">
                             <div style="width: 60%;  ">
                                 <a
-                                        th:href="@{'/detailsEdibleBouquet' + ${flower.id}}"
+                                        th:href="@{'/detailsBouquet' + ${bouquet.id}}"
                                         class="btn  buttonB   btn-floating m-1"
                                         style=" padding: 3px;   "
                                 >Купить в 1 клик</a
@@ -411,7 +406,7 @@
                             </div>
                             <div style="width: 40%;  ">
                                 <a
-                                        th:href="@{'/Cart ' + ${flower.id}}"
+                                        th:href="@{'/goToCart ' + ${bouquet.id}}"
                                         class="btn buttonB  btn-floating m-1"
                                         style="  padding: 3px; "
                                 >В коризну</a
@@ -423,7 +418,6 @@
             </div>
         </div>
     </div>
-
     <div style="width: 100%; height:100px; background:FAF6F3">
         <div class="container mt-3 mb-3 " style="padding:10px 0px 10px 90px">
             <div style="display: flex; justify-content: space-between;      ">
@@ -463,43 +457,6 @@
     </div>
 
 
-    <div style="width: 100%; height:auto; background:#F9F9F9">
-        <div class="container mt-3 mb-3" style="padding:10px 90px 10px 90px">
-            <div style="display: flex; justify-content: space-between;       ">
-                <div style="width: 25%; padding: 15px 20px 15px 20px; border-right: 1px solid rgb(165, 165, 165); ">
-                    <img class="mb-3" src="img/invitation-card.svg" alt="incard" width="50px">
-                    <h6>ОТКРЫТКА К БУКЕТУ</h6>
-                    <p> По желанию в букет положим <strong>бесплатную </strong> открытку с пожеланиями получателю букета
-                        от
-                        вашего имени.</p>
-                </div>
-                <div style="width: 25%; padding: 15px 20px 15px 20px;border-right: 1px solid rgb(165, 165, 165); ">
-                    <img class="mb-3" src="img/camera.svg" alt="incard" width="50px">
-                    <h6>ФОТООТЧЁТ</h6>
-                    <p><strong>Фотографируем ваш букет </strong> перед отправкой, чтобы вы были спокойны - доставят то,
-                        что
-                        заказывали.</p>
-                </div>
-                <div style="width: 25%; padding: 15px 20px 15px 20px;border-right: 1px solid rgb(165, 165, 165);">
-                    <img class="mb-3" src="img/mail.svg" alt="incard" width="50px">
-                    <h6>СМС-ИНФОРМИРОВАНИЕ
-                    </h6>
-                    <p><strong>Информируем </strong> обо всех этапах доставки: когда букет собран, когда доставляется и
-                        когда доставлен.</p>
-                </div>
-                <div style="width: 25%; padding: 15px 20px 15px 20px; ">
-                    <img class="mb-3" src="img/video-camera.svg" alt="incard" width="50px">
-                    <h6>ВИДЕООТЧЁТ</h6>
-                    <p><strong> Записываем на видео</strong> эмоции счастливого получателя вашего букета.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div style="width: 100%; height: 600px;  background:#ffffff ">
-        <div class="container mt-5" style="padding:10px 90px 10px 90px">
-            <h1 class="mt-5">Может быть интересно</h1>
-        </div>
-    </div>
 
     <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
          tabindex="-1">
@@ -510,51 +467,43 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                 </div>
                 <div class="modal-body">
-                    <form th:action="@{'/saveBouquet'}" method="post" th:if="${bouquets!=null}"
+                    <form th:action="@{'/saveEdibleBouquet'}" method="post" th:if="${edibleBouquet!=null}"
                           enctype="multipart/form-data">
                         <div class="mt-2">
                             <label>
                                 Name
                             </label>
-                            <input class="form-control" required type="text" th:value="${bouquets.name}" name="name">
-                            <input type="hidden" th:value="${bouquets.id}" name="id">
+                            <input class="form-control" required type="text" th:value="${edibleBouquet.name}" name="name">
+                            <input type="hidden" th:value="${edibleBouquet.id}" name="id">
                         </div>
                         <div>
                             <label>
                                 composition
                             </label>
-                            <input class="form-control" required type="text " th:value="${bouquets.composition}"
+                            <input class="form-control" required type="text " th:value="${edibleBouquet.composition}"
                                    name="composition">
                         </div>
                         <div>
                             <label>
                                 description
                             </label>
-                            <input class="form-control" required type="text" th:value="${bouquets.description}"
+                            <input class="form-control" required type="text" th:value="${edibleBouquet.description}"
                                    name="description">
                         </div>
                         <div>
                             <label>
                                 price
                             </label>
-                            <input class="form-control" required type="number" th:value="${bouquets.price}"
+                            <input class="form-control" required type="number" th:value="${edibleBouquet.price}"
                                    name="price">
-                        </div>
-
-                        <div>
-                            <label>Статус</label>
-                            <select name="status_id" required class="form-control">
-                                <option selected th:text="${bouquets.status.status}"
-                                        th:value="${bouquets.status.id}"></option>
-                                <option th:each="sts : ${status}" th:text="${sts.status}" th:value="${sts.id}"></option>
-                            </select>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Главная картинка</label>
-                            <input class="form-control form-control-sm" required name="b_image"
-                                   th:value="${bouquets.b_image}" type="file">
+                            <input class="form-control form-control-sm" required name="image"
+                                   th:value="${edibleBouquet.image}" type="file">
                         </div>
+
 
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">Сохранить изменения!</button>
@@ -577,12 +526,12 @@
                     <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Внимание</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                 </div>
-                <form th:action="@{'/deleteBouquets'}" method="post" th:if="${bouquets!=null}">
+                <form th:action="@{'/deleteEdibleBouquet'}" method="post" th:if="${edibleBouquet!=null}">
                     <div class="modal-body">
                         Вы уверены?
                     </div>
                     <div class="modal-footer">
-                        <input type="hidden" name="id" th:value="${bouquets.id}">
+                        <input type="hidden" name="id" th:value="${edibleBouquet.id}">
                         <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Удалить</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
                     </div>
@@ -593,4 +542,6 @@
 
 </div>
 </body>
+<script>
+</script>
 </html>

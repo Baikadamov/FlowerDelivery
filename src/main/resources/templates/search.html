@@ -1,0 +1,182 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/main.html">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{'/css/bootstrap.min.css'}">
+
+    <title>Title</title>
+    <style>
+        .form {
+            height: 46px;
+            font-size: 15px;
+            padding: 5px 15px;
+            width: 100%;
+            color: #414141;
+            border: solid 1px #e8e8e8;
+            background: #fff;
+            margin: 0;
+            border-radius: 0;
+            outline: none;
+        }
+
+        .form:hover {
+            border-color: #7a9874;
+        }
+
+        .btnSearch {
+            height: 46px;
+            border: solid 1px #7a9874;
+            background: #7a9874;
+            color: #fff;
+            font: 15px "Gilroy", sans-serif;
+        }
+
+        .btnSearch:hover {
+            color: black;
+            border: solid 1px #7a9874;
+            font: 15px "Gilroy", sans-serif;
+        }
+
+        .btnClear {
+            height: 46px;
+            font: 15px "Gilroy", sans-serif;
+        }
+    </style>
+</head>
+<body style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
+<div layout:fragment="mainContent">
+    <div class="py-3">
+        <div class="container" style=" padding-left: 100px; padding-right: 100px ">
+            <div>
+                <span style="margin-right: 15px;"><a href="" class="link-secondary"> Доставка цветов </a>  </span>
+                <span style="margin-right: 15px;" class="text-muted"> ></span>
+                <span style="margin-right: 15px;">Результат поиска ></span>
+                <span th:text="${keyword}"></span>
+                <hr>
+            </div>
+            <div>
+                <h2> Поиск по сайту </h2>
+                <h5>Введите ключевое слово. Например: "Розы"</h5>
+                <form th:action="@{'/search'}">
+                    <div class="d-flex">
+                        <div class="w-100 py-2 ">
+                            <input type="text" class="  form " name="keyword" th:value="${keyword}" required/>
+                        </div>
+                        <div class="w-auto p-2">
+                            <input class="btnSearch btn" type="submit" value="Search"/>
+                        </div>
+                        <div class="w-auto p-2">
+                            <input class="btnClear btn btn-outline-dark" type="button" value="Clear"
+                                   onclick="clearFilter()"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="row hidden-md-up">
+                <div class="col-md-3" style="margin-top: 25px" th:each="bouquet : ${bouquets}">
+                    <div class="card h-100 " style="background-color: #f3ebe5; ">
+                        <div class="card-body">
+                            <img class="card-img-top" th:src="@{'/viewphoto/'+ ${bouquet.b_image}}"/>
+                            <h4 class="card-title" style="font-size: 25px; font-weight: bold"
+                                th:text="${bouquet.name}"></h4>
+                            <p class="card-text p-y-1" th:text="${bouquet.status.status}"></p>
+                            <p style="font-size: 24px; font-weight:400" class="card-text p-y-1"
+                               th:text="${bouquet.price}">
+                                12120
+                            </p>
+                            <div style="display:flex;justify-content:center;  ">
+                                <div style="width: 60%;  ">
+                                    <a
+                                            th:href="@{'/detailsBouquet' + ${bouquet.id}}"
+                                            class="btn  buttonB   btn-floating m-1"
+                                            style=" padding: 3px;   "
+                                    >Купить в 1 клик</a
+                                    >
+                                </div>
+                                <div style="width: 40%;  ">
+                                    <a
+                                            th:href="@{'/goToCart ' + ${bouquet.id}}"
+                                            class="btn buttonB  btn-floating m-1"
+                                            style="  padding: 3px; "
+                                    >В коризну</a
+                                    >
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3" style="margin-top: 25px" th:each="flower : ${flowerInBoxes}">
+                    <div class="card h-100 " style="background-color: #f3ebe5; ">
+                        <div class="card-body" style="padding-bottom: 0px">
+                            <img class="card-img-top" th:src="@{'/viewphoto/'+ ${flower.image}}"/>
+                            <h4 class="card-title" style="font-size: 25px; font-weight: bold"
+                                th:text="${flower.name}"></h4>
+                            <p class="card-text p-y-1" th:text="${flower.description}"></p>
+                            <p style="font-size: 24px; font-weight:400" class="card-text p-y-1"
+                               th:text="${flower.price}">
+                                12120
+                            </p>
+                        </div>
+                        <div style="display:flex;justify-content:center;padding: 5px 10px   ">
+                            <div style="width: 60%;  ">
+                                <a
+                                        th:href="@{'/detailsFlowerInBox' + ${flower.id}}"
+                                        class="btn  buttonB   btn-floating m-1"
+                                        style=" padding: 3px;   "
+                                >Купить в 1 клик</a
+                                >
+                            </div>
+                            <div style="width: 40%;  ">
+                                <a
+                                        th:href="@{'/goToCart ' + ${flower.id}}"
+                                        class="btn buttonB  btn-floating m-1"
+                                        style="  padding: 3px; "
+                                >В коризну</a
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3" style="margin-top: 25px" th:each="flower : ${edibleBouquets}">
+                    <div class="card h-100 " style="background-color: #f3ebe5; ">
+                        <div class="card-body" style="padding-bottom: 0px">
+                            <img class="card-img-top" th:src="@{'/viewphoto/'+ ${flower.image}}"/>
+                            <h4 class="card-title" style="font-size: 25px; font-weight: bold"
+                                th:text="${flower.name}"></h4>
+                            <p class="card-text p-y-1" th:text="${flower.description}"></p>
+                            <p style="font-size: 24px; font-weight:400" class="card-text p-y-1"
+                               th:text="${flower.price}">
+                                12120
+                            </p>
+                        </div>
+                        <div style="display:flex;justify-content:center; padding: 5px 10px  ">
+                            <div style="width: 60%;  ">
+                                <a
+                                        th:href="@{'/detailsEdibleBouquet' + ${flower.id}}"
+                                        class="btn  buttonB   btn-floating m-1"
+                                        style=" padding: 3px;   "
+                                >Купить в 1 клик</a
+                                >
+                            </div>
+                            <div style="width: 40%;  ">
+                                <a
+                                        th:href="@{'/Cart ' + ${flower.id}}"
+                                        class="btn buttonB  btn-floating m-1"
+                                        style="  padding: 3px; "
+                                >В коризну</a
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</div>
+</body>
+<script type="text/javascript" th:src="@{'/js/bootstrap.bundle.js'}"></script>
+</html>

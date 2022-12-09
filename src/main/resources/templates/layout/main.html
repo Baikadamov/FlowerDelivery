@@ -8,12 +8,19 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" th:href="@{'/css/bootstrap.min.css'}">
     <title>Title</title>
+    <style>
+        .nitem:hover {
+            color: #BF977F;
+            font-weight: bold;
+        }
+    </style>
 </head>
-<body>
+<body style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
 
 <!--navbar-->
 <div class="sticky-top">
     <nav
+            id="navbar"
             class="navbar navbar-expand-lg"
             style="height: 60px; background-color: #f7f0ec"
     >
@@ -66,7 +73,7 @@
                         >
                     </li>
                     <li class="nav-item" style="line-height: 40px ; margin-right: 20px;">
-                        <a class="nav-link active" href="#"><strong>+7 (708) 494-19-56</strong></a>
+                        <a class="nav-link active" href="#"><strong>+7 (708) 494-77-77</strong></a>
                     </li>
                     <li class="nav-item" style="margin-left:50px;margin-right: 10px;line-height: 10px ;">
                         <a
@@ -112,7 +119,7 @@
                   margin-right: auto;
                   width: 50%;  "
                                 class="navbar-brand"
-                                href="#"
+                                th:href="@{'/search'}"
                         >
                             <img
                                     src="img/search.svg"
@@ -207,34 +214,19 @@
                     id="navbarCenteredExample"
             >
                 <ul class="navbar-nav mb-2 mb-lg-0 text-uppercase">
-                    <li class="nav-item  "
-                        style="line-height: 40px ; margin-right: 55px; background-color: #6a8864; border-radius: 10px; ">
-                        <ul class="navbar-nav">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link  dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">
-                                    Меню </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#"> Submenu item 1</a></li>
-                                    <li><a class="dropdown-item" href="#"> Submenu item 2 </a></li>
-                                    <li><a class="dropdown-item" href="#"> Submenu item 3 </a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
                     <li class="nav-item  " style="line-height: 40px ; margin-left: 50px;margin-right: 20px; ">
-                        <a class="nav-link  nitem active text-white" href="#">Каталог</a>
-                    </li>
-                    <li class="nav-item " style="line-height: 40px;margin-right: 20px;">
-                        <a class="nav-link nitem active text-white" href="#">Розы</a>
-                    </li>
-                    <li class="nav-item" style="line-height: 40px;margin-right: 20px;">
-                        <a class="nav-link nitem active text-white" href="#">Пионы</a>
-                    </li>
-                    <li class="nav-item" style="line-height: 40px;margin-right: 20px;">
-                        <a class="nav-link nitem active text-white" href="#">В Коробке</a>
+                        <form th:action="@{'/catalogue'}">
+                            <input type="hidden" class="btn btn-danger  " name="priceCategory" value="100"
+                                   required/>
+                            <input type="hidden" checked name="priceCategory2" value="10000000"/>
+                            <button style="margin-top: 4px;font-size: 18px" class="nav-link btn nitem text-white " type="submit">Каталог</button>
+                        </form>
                     </li>
                     <li class="nav-item" style="line-height: 40px;margin-right: 20px;">
-                        <a class="nav-link  nitem active text-white" href="#">Съедобные</a>
+                        <a class="nav-link nitem active text-white" th:href="@{'/flowerInbox'}">В Коробке</a>
+                    </li>
+                    <li class="nav-item" style="line-height: 40px;margin-right: 20px;">
+                        <a class="nav-link  nitem active text-white" th:href="@{'/edibleBouquet'}">Съедобные</a>
                     </li>
                     <li class="nav-item" style="line-height: 40px;margin-right: 20px;">
                         <a class="nav-link nitem active text-white" href="#">Клубника</a>
@@ -246,13 +238,13 @@
                         <a class="nav-link nitem active text-white" href="#">Шары</a>
                     </li>
                     <li class="nav-item" style="line-height: 40px;margin-right: 20px;">
-                        <a class="nav-link  nitem active text-white" href="#">Оплтаты</a>
+                        <a class="nav-link  nitem active text-white" href="#">Оплата</a>
                     </li>
                     <li class="nav-item" style="line-height: 40px">
                         <a class="nav-link nitem active text-white    " href="#">Контакты</a>
                     </li>
-                    <li class="nav-item" style="line-height: 40px">
-                        <a class="nav-link nitem active text-white    " th:href="@{'/addBouquet'}">Admin Panel</a>
+                    <li class="nav-item" sec:authorize="hasAnyRole('ROLE_MODERATOR')" style="line-height: 40px">
+                        <a class="nav-link  nitem active text-danger" th:href="@{'/settings'}">Admin Panel</a>
                     </li>
                 </ul>
             </div>
@@ -265,7 +257,7 @@
 </div>
 
 <!--footer-->
-<div style="width: 100%; height:auto; background:#F9F9F9">
+<div style="width: 100%; height:auto ;margin-top: 70px; background:#F9F9F9">
     <div class="mb-0  " style="background-color: #f7f0ec; width: 100%">
         <div class="container" style="padding: 10px 40px 10px 40px">
             <footer class="text-center text-secondary">
@@ -369,7 +361,7 @@
                         >
                             КОНТАКТЫ</a
                         >
-                        <hr />
+                        <hr/>
                     </section>
 
                     <div style="display: flex; justify-content: center">
@@ -377,7 +369,7 @@
                             <div class="text-start" style="margin-left: 10px;">
                                 <a
                                         class="btn btn-outline-dark  btn-floating m-1"
-                                        href="#!"
+                                        href="#top"
                                         role="button"
                                         style="font-size: 15px;"
                                 >
@@ -476,5 +468,66 @@
 
 
 </body>
-<script type="text/javascript" th:src="@{'/js/bootstrap.bundle.js'}"></script>
+<script type="text/javascript" th:src="@{'/js/bootstrap.bundle.js'}">
+</script>
+<script>
+    function myFunction() {
+        let x = document.getElementById("myDIV");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+// make it as accordion for smaller screens
+        if (window.innerWidth > 992) {
+
+            document.querySelectorAll('.navbar .nav-item').forEach(function (everyitem) {
+
+                everyitem.addEventListener('mouseover', function (e) {
+
+                    let el_link = this.querySelector('a[data-bs-toggle]');
+
+                    if (el_link != null) {
+                        let nextEl = el_link.nextElementSibling;
+                        el_link.classList.add('show');
+                        nextEl.classList.add('show');
+                    }
+
+                });
+                everyitem.addEventListener('mouseleave', function (e) {
+                    let el_link = this.querySelector('a[data-bs-toggle]');
+
+                    if (el_link != null) {
+                        let nextEl = el_link.nextElementSibling;
+                        el_link.classList.remove('show');
+                        nextEl.classList.remove('show');
+                    }
+
+
+                })
+            });
+
+        }
+// end if innerWidth
+    });
+
+
+    function changeImage(element) {
+
+        var main_prodcut_image = document.getElementById('main_product_image');
+        main_prodcut_image.src = element.src;
+
+    }
+
+    function clearFilter() {
+        window.location = '/search';
+    }
+
+    function clearCategory() {
+        window.location = '/';
+    }
+</script>
 </html>

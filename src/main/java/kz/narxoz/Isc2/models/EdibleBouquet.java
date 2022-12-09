@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "t_bouquets")
+@Table(name = "t_edible_bouquet")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Bouquets {
+public class EdibleBouquet {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
@@ -20,10 +20,10 @@ public class Bouquets {
   @Column(name = "name")
   private String name;
 
-  @Column(name = "b_image")
-  private String b_image;
+  @Column(name = "image")
+  private String image;
 
-  @Column(name = "description" ,columnDefinition = "TEXT")
+  @Column(name = "description", columnDefinition="TEXT", length=10485760)
   private String description    ;
 
   @Column(name = "price")
@@ -31,10 +31,4 @@ public class Bouquets {
 
   @Column(name = "composition")
   private String composition   ;
-
-
-  @ManyToOne
-  private Status status;
-
-
 }

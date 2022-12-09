@@ -1,0 +1,287 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" layout:decorate="layout/main.html">
+<head>
+    <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+            crossorigin="anonymous"
+    ></script>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+            crossorigin="anonymous"
+    />
+    <style>
+
+        .buttonB {
+            transition-duration: 0.1s;
+            background-color: #7A9874;
+            color: white;
+
+        }
+
+        .buttonB:hover { /* Green */
+            color: #7A9874;
+            border: 1px solid #7A9874;
+        }
+
+
+        .box {
+            width: 100%;
+            height: 400px;
+            background: url("img/jb.jpg") no-repeat center;
+            background-size: cover;
+        }
+
+
+        .nitem:hover {
+            color: #BF977F;
+            font-weight: bold;
+        }
+
+        label {
+            margin-right: 15px;
+            line-height: 32px;
+        }
+
+        input {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+
+            border: 2px solid #999;
+            transition: 0.2s all linear;
+            outline: none;
+            margin-right: 5px;
+
+            position: relative;
+            top: 4px;
+        }
+
+        input:checked {
+            border: 6px solid #6F886A;
+        }
+
+
+    </style>
+</head>
+<body style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
+<div layout:fragment="mainContent">
+    <div class="py-3">
+        <div class="container" style=" padding-left: 100px; padding-right: 100px ">
+            <div>
+                <span style="margin-right: 15px;"><a href="" class="link-secondary"> Доставка цветов </a>  </span>
+                <span style="margin-right: 15px;" class="text-muted"> ></span>
+                <span style="margin-right: 15px;">Цветы в коробке </span>
+                <hr>
+            </div>
+            <h2 class="mt-3 mb-3"  > Цветы в коробке  </h2>
+
+            <div class="row hidden-md-up">
+                <div class="col-md-3" style="margin-top: 25px" th:each="flower : ${flowerInBoxes}">
+                    <div class="card h-100 " style="background-color: #f3ebe5; ">
+                        <div class="card-body">
+                            <img class="card-img-top" th:src="@{'/viewphoto/'+ ${flower.image}}"/>
+                            <h4 class="card-title" style="font-size: 25px; font-weight: bold"
+                                th:text="${flower.name}"></h4>
+                            <span style="font-size: 24px; font-weight:400" class="card-text p-y-1"
+                                  th:text="${flower.price} ">
+                            </span>
+                            <span style="font-size: 24px; font-weight:400">₸</span>
+                            <div style="display:flex;justify-content:center;  ">
+                                <div style="width: 60%;  ">
+                                    <a
+                                            th:href="@{'/detailsFlowerInBox' + ${flower.id}}"
+                                            class="btn  buttonB   btn-floating m-1"
+                                            style=" padding: 3px;   "
+                                    >Купить в 1 клик</a
+                                    >
+                                </div>
+                                <div style="width: 40%;  ">
+                                    <a
+                                            th:href="@{'/goToCart ' + ${flower.id}}"
+                                            class="btn buttonB  btn-floating m-1"
+                                            style="  padding: 3px; "
+                                    >В коризну</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="padding-left: 100px; padding-right: 100px">
+        <div
+                style="
+          display: flex;
+          justify-content: center;
+          width: auto;
+          margin-top: 20px;
+        "
+        >
+            <div style="width: 50%; padding: 10px 20px 10px 0px">
+                <h1>Заказ и доставка цветов Алматы</h1>
+                <p style="font-size: 23px" class="mt-3">
+                    «Pro-buket» – это сеть доставки прекрасных цветов и подарков. Более
+                    5 лет мы помогаем делать ваши праздники особенными. Дарите своим
+                    близким любовь вместе с нами.
+                </p>
+                <hr/>
+                <p>
+                    Собираем букеты и композиции из цветов профессионально, стильно и со
+                    вкусом. Наша миссия — дарить счастье и улыбки вашим любимым.
+                </p>
+                <p>
+                    Наш сервис по доставке цветов в Алматы существует 5 лет, и мы
+                    порадовали более 10 000 человек. Наша команда работает с любовью для
+                    вас.
+                </p>
+                <h5 class="mt-4 mb-3">
+                    Великолепный способ проявить чувства – заказать цветы с доставкой
+                    Алматы
+                </h5>
+                <p>
+                    Универсальным способом поздравления, проявления уважения, оказания
+                    знаков внимания являются цветы. Многообразие сортов, цветовых
+                    решений, необычные детали позволяют создавать букеты удивительной
+                    красоты. Поддержим решение выразить чувства, поднять настроение.
+                    Величественные розы, нежные тюльпаны, воздушные хризантемы,
+                    изысканные гортензии – часть обширного ассортимента. Опытные
+                    флористы подберут стильное оформление, доступны разные способы
+                    исполнения.
+                </p>
+                <h5 class="mt-4 mb-3">Создаем приятные воспоминания вместе</h5>
+                <p>
+                    Предлагаем перестать ждать подходящего момента, а заказать цветы
+                    Алматы. Даем возможность самостоятельно создавать запоминающиеся
+                    эпизоды, без ожиданий конкретной даты. Если находитесь не рядом с
+                    близкими, родными, действует оперативная доставка. Достаточно
+                    выбрать понравившуюся композицию. В указанный период вежливые,
+                    оперативные курьеры доставят подарок получателю. Удобно, когда
+                    нельзя преподнести цветы на заказ Алматы лично.
+                </p>
+            </div>
+            <div style="width: 50%; padding: 25px 0px 10px 20px">
+                <img src="img/about.jpg" alt=""/>
+                <div class="mt-3">
+                    <p>Каталог включает:</p>
+                    <ul>
+                        <li>монобукеты;</li>
+                        <li class="mt-2">объемные композиции;</li>
+                        <li class="mt-2">корзины;</li>
+                        <li class="mt-2">бутоны в коробках.</li>
+                    </ul>
+                </div>
+                <p>
+                    Доступны классические букеты, лаконично оформленные бутоны.
+                    Индивидуально подбираются дополнительные элементы, упаковочная
+                    бумага. Придерживаемся персонализированного подхода. Соблюдаем
+                    установленные сроки, учитываем мельчайшие детали.
+                </p>
+                <div class="mt-3">
+                    <p>Предлагаем купить цветы следующими способами:</p>
+                    <ul>
+                        <li class="mt-2">заполнение формы на сайте;</li>
+                        <li class="mt-2">телефонный звонок.</li>
+                    </ul>
+                </div>
+                <p>
+                    Менеджеры предоставят необходимые сведения, помогут принять верное
+                    решение. Регулярно проводим акции, скидки, поможем подобрать
+                    варианты недорого. Расширяем ассортимент готовых композиций новыми,
+                    трендовыми позициями.
+                </p>
+                <p class="mt-4">
+                    Цветочный магазин «Pro-buket» предлагает ознакомиться с каталогом,
+                    выбрать вариант, соответствующий требованиям. Круглосуточно работает
+                    собственная курьерская служба, доставляющая красивые букеты по
+                    городу, в центре. Работают пункты самовывоза, где действует
+                    возможность забрать цветочную композицию.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div style="width: 100%; height:100px; background:#f3ebe5">
+        <div class="container mt-3 mb-3 " style="padding:20px 0px 10px 90px">
+            <div style="display: flex; justify-content: space-between;      ">
+                <div style="width: 33%; display: flex ">
+                    <div style="width:30% ; padding-left: 20px;">
+                        <img src="img/flower-bouquet.svg" style="background-color: #6F886A ; border-radius: 30px;"
+                             width="58px" height="58px" alt="">
+                    </div>
+                    <div style="width: 70%; ">
+                        <h4>Гарантия свежести </h4>
+                        <h6>7 дней</h6>
+                    </div>
+                </div>
+                <div style="width: 33%; display: flex">
+                    <div style="width:30% ;padding-left: 20px;">
+                        <img src="img/percent.svg" style="background-color: #6F886A ; border-radius: 30px;" width="58px"
+                             height="58px" alt="">
+                    </div>
+                    <div style="width: 70%; ">
+                        <h4>Скидка 10%</h4>
+                        <h6>При самовывозе</h6>
+                    </div>
+                </div>
+                <div style="width: 33%; display: flex">
+                    <div style="width:30% ;padding-left: 20px;">
+                        <img src="img/payment.svg" style="background-color: #6F886A ; border-radius: 30px;" width="58px"
+                             height="58px" alt="">
+                    </div>
+                    <div style="width: 70%; ">
+                        <h4>Быстрая </h4>
+                        <h6>оплата онлайн</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div style="width: 100%; height:auto; background:#F9F9F9">
+        <div class="container  " style="padding: 40px 100px 40px 100px">
+            <div style="display: flex; justify-content: space-between;       ">
+                <div style="width: 25%; padding: 15px 20px 15px 20px; border-right: 1px solid rgb(165, 165, 165); ">
+                    <img class="mb-3" src="img/invitation-card.svg" alt="incard" width="50px">
+                    <h6>ОТКРЫТКА К БУКЕТУ</h6>
+                    <p> По желанию в букет положим <strong>бесплатную </strong> открытку с пожеланиями получателю букета
+                        от
+                        вашего имени.</p>
+                </div>
+                <div style="width: 25%; padding: 15px 20px 15px 20px;border-right: 1px solid rgb(165, 165, 165); ">
+                    <img class="mb-3" src="img/camera.svg" alt="incard" width="50px">
+                    <h6>ФОТООТЧЁТ</h6>
+                    <p><strong>Фотографируем ваш букет </strong> перед отправкой, чтобы вы были спокойны - доставят то,
+                        что
+                        заказывали.</p>
+                </div>
+                <div style="width: 25%; padding: 15px 20px 15px 20px;border-right: 1px solid rgb(165, 165, 165);">
+                    <img class="mb-3" src="img/mail.svg" alt="incard" width="50px">
+                    <h6>СМС-ИНФОРМИРОВАНИЕ
+                    </h6>
+                    <p><strong>Информируем </strong> обо всех этапах доставки: когда букет собран, когда доставляется и
+                        когда доставлен.</p>
+                </div>
+                <div style="width: 25%; padding: 15px 20px 15px 20px; ">
+                    <img class="mb-3" src="img/video-camera.svg" alt="incard" width="50px">
+                    <h6>ВИДЕООТЧЁТ</h6>
+                    <p><strong> Записываем на видео</strong> эмоции счастливого получателя вашего букета.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

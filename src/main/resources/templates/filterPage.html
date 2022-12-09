@@ -45,7 +45,10 @@
         }
 
 
-
+        .nitem:hover {
+            color: #BF977F;
+            font-weight: bold;
+        }
 
         label {
             margin-right: 15px;
@@ -82,21 +85,15 @@
 
 
     <div class="box">
-        <div class="container text-white " style="padding: 90px 10px 10px 105px;">
+        <div class="container text-white " style="padding: 90px 10px 10px 130px;">
             <h1 style="font-size: 65px; font-weight: bold ; margin-bottom: 0px;  ">Доставка цветов</h1>
             <h1 style="font-size: 50px; font-weight: bolder; margin-top: -15px;   ">Алматы</h1>
             <li style="font-size: 20px; margin-top: 15px;">Гарантия свежести букета на 7 дней!
             </li>
-            <form th:action="@{'/catalogue'}">
-                <input type="hidden" class="btn btn-danger  " name="priceCategory" value="100"
-                       required/>
-                <input type="hidden" checked name="priceCategory2" value="10000000"/>
-                <button type="submit"  class="btn "
-                         style="width: 150px; height: 50px; font-size: 15px; background-color: #BF977F ; color: white ; margin-top: 30px;">
-                    Выбрать букет
-                </button>
-            </form>
-
+            <button class="btn "
+                    style="width: 150px; height: 50px; font-size: 15px; background-color: #BF977F ; color: white ; margin-top: 30px;">
+                Выбрать букет
+            </button>
         </div>
     </div>
 
@@ -213,94 +210,32 @@
             <div class="row hidden-md-up">
                 <div class="col-md-3" style="margin-top: 25px" th:each="bouquet : ${bouquets}">
                     <div class="card h-100 " style="background-color: #f3ebe5; ">
-                        <div class="card-body" style="padding-bottom: 0px">
+                        <div class="card-body">
                             <img class="card-img-top" th:src="@{'/viewphoto/'+ ${bouquet.b_image}}"/>
                             <h4 class="card-title" style="font-size: 25px; font-weight: bold"
                                 th:text="${bouquet.name}"></h4>
                             <p class="card-text p-y-1" th:text="${bouquet.status.status}"></p>
                             <span style="font-size: 24px; font-weight:400" class="card-text p-y-1"
-                               th:text="${bouquet.price} ">
+                               th:text="${bouquet.price}">
                             </span>
-                            <span style="font-size: 24px; font-weight:400">₸</span>
-                        </div>
-                        <div style="display:flex;justify-content:center; padding: 5px 10px ">
-                            <div style="width: 60%;  ">
-                                <a
-                                        th:href="@{'/detailsBouquet' + ${bouquet.id}}"
-                                        class="btn  buttonB   btn-floating m-1"
-                                        style=" padding: 3px;   "
-                                >Купить в 1 клик</a
-                                >
-                            </div>
-                            <div style="width: 40%;  ">
-                                <a
-                                        th:href="@{'/goToCart ' + ${bouquet.id}}"
-                                        class="btn buttonB  btn-floating m-1"
-                                        style="  padding: 3px; "
-                                >В коризну</a
-                                >
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3" style="margin-top: 25px" th:each="flower : ${edibleBouquets}">
-                    <div class="card h-100 " style="background-color: #f3ebe5; ">
-                        <div class="card-body" style="padding-bottom: 0px">
-                            <img class="card-img-top" th:src="@{'/viewphoto/'+ ${flower.image}}"/>
-                            <h4 class="card-title" style="font-size: 25px; font-weight: bold"
-                                th:text="${flower.name}"></h4>
-                            <span style="font-size: 24px; font-weight:400" class="card-text p-y-1"
-                                  th:text="${flower.price} ">
-                            </span>
-                            <span style="font-size: 24px; font-weight:400">₸</span>
-                        </div>
-                        <div style="display:flex;justify-content:center; padding: 5px 10px  ">
-                            <div style="width: 60%;  ">
-                                <a
-                                        th:href="@{'/detailsEdibleBouquet' + ${flower.id}}"
-                                        class="btn  buttonB   btn-floating m-1"
-                                        style=" padding: 3px;   "
-                                >Купить в 1 клик</a
-                                >
-                            </div>
-                            <div style="width: 40%;  ">
-                                <a
-                                        th:href="@{'/Cart ' + ${flower.id}}"
-                                        class="btn buttonB  btn-floating m-1"
-                                        style="  padding: 3px; "
-                                >В коризну</a
-                                >
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3" style="margin-top: 25px" th:each="flower : ${flowerInBoxes}">
-                    <div class="card h-100 " style="background-color: #f3ebe5; ">
-                        <div class="card-body" style="padding-bottom: 0px">
-                            <img class="card-img-top" th:src="@{'/viewphoto/'+ ${flower.image}}"/>
-                            <h4 class="card-title" style="font-size: 25px; font-weight: bold"
-                                th:text="${flower.name}"></h4>
-                            <span style="font-size: 24px; font-weight:400" class="card-text p-y-1"
-                                  th:text="${flower.price} ">
-                            </span>
-                            <span style="font-size: 24px; font-weight:400">₸</span>
-                        </div>
-                        <div style="display:flex;justify-content:center;padding: 5px 10px   ">
-                            <div style="width: 60%;  ">
-                                <a
-                                        th:href="@{'/detailsFlowerInBox' + ${flower.id}}"
-                                        class="btn  buttonB   btn-floating m-1"
-                                        style=" padding: 3px;   "
-                                >Купить в 1 клик</a
-                                >
-                            </div>
-                            <div style="width: 40%;  ">
-                                <a
-                                        th:href="@{'/goToCart ' + ${flower.id}}"
-                                        class="btn buttonB  btn-floating m-1"
-                                        style="  padding: 3px; "
-                                >В коризну</a
-                                >
+                            <span> ₸ </span>
+                            <div style="display:flex;justify-content:center;  ">
+                                <div style="width: 60%;  ">
+                                    <a
+                                            th:href="@{'/detailsBouquet' + ${bouquet.id}}"
+                                            class="btn  buttonB   btn-floating m-1"
+                                            style=" padding: 3px;   "
+                                    >Купить в 1 клик</a
+                                    >
+                                </div>
+                                <div style="width: 40%;  ">
+                                    <a
+                                            th:href="@{'/goToCart ' + ${bouquet.id}}"
+                                            class="btn buttonB  btn-floating m-1"
+                                            style="  padding: 3px; "
+                                    >В коризну</a
+                                    >
+                                </div>
                             </div>
                         </div>
                     </div>

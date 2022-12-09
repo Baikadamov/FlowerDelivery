@@ -1,32 +1,41 @@
 package kz.narxoz.Isc2.controllers;
 
+import kz.narxoz.Isc2.models.Auth.Roles;
 import kz.narxoz.Isc2.models.Auth.Users;
 import kz.narxoz.Isc2.models.Bouquets;
-import kz.narxoz.Isc2.repository.BouquetsRepository;
+import kz.narxoz.Isc2.models.EdibleBouquet;
+import kz.narxoz.Isc2.models.FlowerInBox;
+import kz.narxoz.Isc2.models.Status;
+import kz.narxoz.Isc2.repository.*;
 import kz.narxoz.Isc2.services.impl.UserServices;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.management.relation.Role;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class MainController {
+
 
   @Autowired
   private BouquetsRepository bouquetsRepository;
@@ -34,6 +43,20 @@ public class MainController {
   @Autowired
   private UserServices userServices;
 
+  @Autowired
+  private Flower_boxRepository flower_boxRepository;
+
+  @Autowired
+  private Edible_bouquetRepository edible_bouquetRepository;
+
+  @Autowired
+  private StatusRepository statusRepository;
+
+  @Autowired
+  private UserRepository userRepository;
+
+  @Autowired
+  private RoleRepository roleRepository;
 
   @Value("${file.bouquets.viewPath}")
   private String viewPath;
@@ -48,27 +71,95 @@ public class MainController {
   @GetMapping(value = "/")
   public String indexPage(Model model) {
     List<Bouquets> bouquets = bouquetsRepository.findAll();
-    model.addAttribute("currentUser" ,getCurrentUser());
+    List<FlowerInBox> flowerInBoxes = flower_boxRepository.findAll();
     model.addAttribute("bouquets", bouquets);
+    List<Status> status = statusRepository.findAll();
+    List<EdibleBouquet> edibleBouquets = edible_bouquetRepository.findAll();
+    model.addAttribute("currentUser", getCurrentUser());
+    model.addAttribute("status", status);
+    model.addAttribute("edibleBouquets", edibleBouquets);
+    model.addAttribute("flowerInBoxes", flowerInBoxes);
+
     return "index";
   }
 
-  @GetMapping(value = "/addBouquet")
+  @RequestMapping(value = "/filter")
+  public String filterPage(Model model, @Param("priceCategory") Integer priceCategory,
+                           @Param("priceCategory2") Integer priceCategory2) {
+    List<Bouquets> bouquets = bouquetsRepository.findAll(priceCategory, priceCategory2);
+    model.addAttribute("bouquets", bouquets);
+    model.addAttribute("priceCategory", priceCategory);
+    model.addAttribute("priceCategory2", priceCategory);
+    List<Status> status = statusRepository.findAll();
+    model.addAttribute("currentUser", getCurrentUser());
+    model.addAttribute("status", status);
+    return "filterPage";
+  }
+
+
+
+  @RequestMapping(value = "/catalogue")
+  public String catalogue(Model model ,@Param("priceCategory") Integer priceCategory,
+                          @Param("priceCategory2") Integer priceCategory2) {
+    List<Bouquets> bouquets = bouquetsRepository.findAll(priceCategory, priceCategory2);
+    List<FlowerInBox> flowerInBoxes = flower_boxRepository.findAll(priceCategory, priceCategory2);
+    model.addAttribute("bouquets", bouquets);
+    List<Status> status = statusRepository.findAll();
+    List<EdibleBouquet> edibleBouquets = edible_bouquetRepository.findAll(priceCategory,priceCategory2);
+    model.addAttribute("currentUser", getCurrentUser());
+    model.addAttribute("status", status);
+    model.addAttribute("edibleBouquets", edibleBouquets);
+    model.addAttribute("flowerInBoxes", flowerInBoxes);
+    return "catalogue";
+  }
+
+
+  @RequestMapping(value = "/search")
+  public String search(Model model, @Param("keyword") String keyword) {
+    List<Bouquets> bouquets = bouquetsRepository.findAll(keyword);
+    List<EdibleBouquet> edibleBouquets = edible_bouquetRepository.findAll(keyword);
+    List<FlowerInBox> flowerInBoxes = flower_boxRepository.findAll(keyword);
+    List<Status> status = statusRepository.findAll();
+    model.addAttribute("currentUser", getCurrentUser());
+    model.addAttribute("bouquets", bouquets);
+    model.addAttribute("edibleBouquets", edibleBouquets);
+    model.addAttribute("flowerInBoxes", flowerInBoxes);
+    model.addAttribute("status", status);
+    model.addAttribute("keyword", keyword);
+    return "search";
+  }
+
+
+  @GetMapping(value = "/settings")
+  @PreAuthorize("hasAnyRole('ROLE_MODERATOR')")
   public String addPage(Model model) {
-    model.addAttribute("currentUser" ,getCurrentUser());
-    return "addBouquet";
+    List<EdibleBouquet> edibleBouquets = edible_bouquetRepository.findAll();
+    List<Bouquets> bouquets = bouquetsRepository.findAll();
+    List<FlowerInBox> flowerInBoxes = flower_boxRepository.findAll();
+    model.addAttribute("currentUser", getCurrentUser());
+    model.addAttribute("bouquets", bouquets);
+    model.addAttribute("flowerInBoxes", flowerInBoxes);
+    model.addAttribute("edibleBouquets", edibleBouquets);
+    List<Status> status = statusRepository.findAll();
+    model.addAttribute("status", status);
+    List<Users> users = userRepository.findAll();
+    model.addAttribute("users", users);
+    List<Roles> roles = roleRepository.findAll();
+    model.addAttribute("roles", roles);
+    return "settings";
   }
 
   @GetMapping(value = "/login")
   public String login(Model model) {
-    model.addAttribute("currentUser" ,getCurrentUser());
+    model.addAttribute("currentUser", getCurrentUser());
     return "login";
   }
+
 
   @GetMapping(value = "/profile")
   @PreAuthorize("isAuthenticated()")
   public String profile(Model model) {
-    model.addAttribute("currentUser" ,getCurrentUser());
+    model.addAttribute("currentUser", getCurrentUser());
     return "profile";
   }
 
@@ -78,15 +169,12 @@ public class MainController {
                               @RequestParam(name = "composition") String composition,
                               @RequestParam(name = "description") String description,
                               @RequestParam(name = "price") int price,
-                              @RequestParam(name = "size") String size,
-                              @RequestParam(name = "b_image") MultipartFile file,
-                              @RequestParam(name = "b_image2") MultipartFile file2,
-                              @RequestParam(name = "b_image3") MultipartFile file3) {
+                              @RequestParam(name = "status_id") Long status_id,
+                              @RequestParam(name = "b_image") MultipartFile file) {
 
 
     if ((file.getContentType().equals("image/jpeg") || file.getContentType().equals("image/png"))
-        && (file2.getContentType().equals("image/jpeg") || file2.getContentType().equals("image/png"))
-        && (file3.getContentType().equals("image/jpeg") || file3.getContentType().equals("image/png"))
+
     ) {
       try {
         String picName = DigestUtils.sha1Hex("picture" + composition);
@@ -97,33 +185,27 @@ public class MainController {
         Path path = Paths.get(uploadPath + picName + ".jpg");
         Files.write(path, bytes);
 
-        byte[] bytes2 = file2.getBytes();
-        Path path2 = Paths.get(uploadPath + picName2 + ".jpg");
-        Files.write(path2, bytes2);
+        Status status = statusRepository.findById(status_id).orElse(null);
 
-        byte[] bytes3 = file3.getBytes();
-        Path path3 = Paths.get(uploadPath + picName3 + ".jpg");
-        Files.write(path3, bytes3);
+        if (status != null) {
+          Bouquets bouquets = new Bouquets();
+          bouquets.setName(name);
+          bouquets.setComposition(composition);
+          bouquets.setDescription(description);
+          bouquets.setStatus(status);
+          bouquets.setPrice(price);
+          bouquets.setB_image(picName);
 
+          bouquetsRepository.save(bouquets);
+        }
 
-        Bouquets bouquets = new Bouquets();
-        bouquets.setName(name);
-        bouquets.setComposition(composition);
-        bouquets.setDescription(description);
-        bouquets.setPrice(price);
-        bouquets.setSize(size);
-        bouquets.setB_image(picName);
-        bouquets.setB_image2(picName2);
-        bouquets.setB_image3(picName3);
-
-        bouquetsRepository.save(bouquets);
 
       } catch (Exception e) {
         e.printStackTrace();
       }
     }
 
-    return "redirect:/";
+    return "redirect:/settings";
 
   }
 
@@ -159,8 +241,12 @@ public class MainController {
   @GetMapping(value = "/detailsBouquet{id}")
   public String details(@PathVariable(name = "id") Long id, Model model) {
     Bouquets bouquets = bouquetsRepository.findById(id).orElse(null);
-    model.addAttribute("currentUser" ,getCurrentUser());
+    List<EdibleBouquet> edibleBouquets = edible_bouquetRepository.findAll();
+    model.addAttribute("edibleBouquets", edibleBouquets);
+    model.addAttribute("currentUser", getCurrentUser());
     model.addAttribute("bouquets", bouquets);
+    List<Status> status = statusRepository.findAll();
+    model.addAttribute("status", status);
     return "detailsBouquets";
   }
 
@@ -171,60 +257,63 @@ public class MainController {
                             @RequestParam(name = "composition") String composition,
                             @RequestParam(name = "description") String description,
                             @RequestParam(name = "price") int price,
-                            @RequestParam(name = "size") String size,
-                            @RequestParam(name = "b_image") MultipartFile file,
-                            @RequestParam(name = "b_image2") MultipartFile file2,
-                            @RequestParam(name = "b_image3") MultipartFile file3) {
+                            @RequestParam(name = "status_id") Long status_id,
+                            @RequestParam(name = "b_image") MultipartFile file) {
 
 
-      try {
-        String picName = DigestUtils.sha1Hex("picture" + composition);
-        String picName2 = DigestUtils.sha1Hex("picture" + description);
-        String picName3 = DigestUtils.sha1Hex("picture" + price);
+    try {
+      String picName = DigestUtils.sha1Hex("picture" + composition);
 
-        byte[] bytes = file.getBytes();
-        Path path = Paths.get(uploadPath + picName + ".jpg");
-        Files.write(path, bytes);
-
-        byte[] bytes2 = file2.getBytes();
-        Path path2 = Paths.get(uploadPath + picName2 + ".jpg");
-        Files.write(path2, bytes2);
-
-        byte[] bytes3 = file3.getBytes();
-        Path path3 = Paths.get(uploadPath + picName3 + ".jpg");
-        Files.write(path3, bytes3);
+      byte[] bytes = file.getBytes();
+      Path path = Paths.get(uploadPath + picName + ".jpg");
+      Files.write(path, bytes);
 
 
-        Bouquets bouquets = bouquetsRepository.findById(id).orElse(null);
+      Bouquets bouquets = bouquetsRepository.findById(id).orElse(null);
+      Status status = statusRepository.findById(status_id).orElse(null);
 
-        if (bouquets != null) {
-          bouquets.setName(name);
-          bouquets.setComposition(composition);
-          bouquets.setDescription(description);
-          bouquets.setPrice(price);
-          bouquets.setSize(size);
-          bouquets.setB_image(picName);
-          bouquets.setB_image2(picName2);
-          bouquets.setB_image3(picName3);
+      if (bouquets != null) {
+        bouquets.setName(name);
+        bouquets.setComposition(composition);
+        bouquets.setDescription(description);
+        bouquets.setPrice(price);
+        bouquets.setB_image(picName);
+        bouquets.setStatus(status);
 
-          bouquetsRepository.save(bouquets);
-          return "redirect:/";
-        }
-      } catch (Exception e) {
-        e.printStackTrace();
+        bouquetsRepository.save(bouquets);
+        return "redirect:/detailsBouquet" + id;
       }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     return "redirect:/";
   }
 
+  @PostMapping(value = "/deleteAccount")
+  public String deleteAccount(
+      @RequestParam(name = "id") Long id,
+      @RequestParam(name = "email") String email) {
 
+    Users user = userRepository.findById(id).orElse(null);
+
+    if (Objects.equals(email, "admin@gmail.com")) {
+      return "redirect:/settings";
+    }
+
+    if (user != null) {
+        userRepository.delete(user);
+        return "redirect:/settings";
+    }
+    return "redirect:/settings";
+  }
 
   @PostMapping(value = "/deleteBouquets")
   public String deleteBouquets(
-      @RequestParam(name = "id") Long id  ) {
+      @RequestParam(name = "id") Long id) {
 
-    Bouquets bouquets  = bouquetsRepository.findById(id).orElse(null);
+    Bouquets bouquets = bouquetsRepository.findById(id).orElse(null);
 
-    if(bouquets!=null){
+    if (bouquets != null) {
       bouquetsRepository.delete(bouquets);
       return "redirect:/";
     }
@@ -232,8 +321,8 @@ public class MainController {
   }
 
   @GetMapping(value = "/register")
-  public String register(Model model){
-    model.addAttribute("currentUser",getCurrentUser());
+  public String register(Model model) {
+    model.addAttribute("currentUser", getCurrentUser());
     return "register";
   }
 
@@ -241,15 +330,15 @@ public class MainController {
   public String toRegister(@RequestParam(name = "user_email") String email,
                            @RequestParam(name = "user_password") String password,
                            @RequestParam(name = "user_rePassword") String rePassword,
-                           @RequestParam(name = "user_fullName") String fullName){
+                           @RequestParam(name = "user_fullName") String fullName) {
 
-    if (password.equals(rePassword)){
+    if (password.equals(rePassword)) {
       Users newUser = new Users();
       newUser.setPassword(password);
       newUser.setFull_name(fullName);
       newUser.setEmail(email);
 
-      if (userServices.createUser(newUser)!=null){
+      if (userServices.createUser(newUser) != null) {
         return "redirect:/profile";
       }
     }
@@ -258,9 +347,9 @@ public class MainController {
   }
 
 
-  private Users getCurrentUser(){
+  private Users getCurrentUser() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    if(!(authentication instanceof AnonymousAuthenticationToken)){
+    if (!(authentication instanceof AnonymousAuthenticationToken)) {
       Users currentUser = (Users) authentication.getPrincipal();
       return currentUser;
     }
