@@ -1,0 +1,78 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/main.html">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{'/css/bootstrap.min.css'}">
+
+    <title>Title</title>
+    <style>
+
+        .Ins {
+            color: #414141;
+            line-height: 1.35;
+            padding: 0 0 29px 0;
+            margin: 0;
+        }
+
+        a:link {
+            text-decoration: none;
+            color: #2b3a2b;
+        }
+
+        a:visited {
+            text-decoration: none;
+
+        }
+    </style>
+</head>
+<body style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
+<div layout:fragment="mainContent">
+    <div class="container" style="padding-left: 100px; padding-right: 100px;margin-top: 60px;margin-bottom: 120px">
+        <div style="font-size: 16px; letter-spacing: 1px; display: flex">
+            <span style="margin-right: 15px"
+            ><a th:href="@{'/'}" class="nav-link link-secondary"> Главная страница </a>
+            </span>
+            <span style="margin-right: 15px" class="text-muted"> ></span>
+            <span class="nav-link active" style="margin-right: 15px"
+            >Личный кабинет</span
+            >
+        </div>
+        <hr/>
+        <h3 class="Ins">Персональная информация
+        </h3>
+
+        <div class="mx-auto col-12">
+            <div style="display: flex ; justify-content: center">
+                <div style="width: 25%;  ">
+                    <div >
+                        <button class="btn btn-light  " style="width: 100%; border-radius:0px;background-color: #FFFAF7">Заказы</button>
+                        <button class="btn btn-light  " style="width: 100%;border-radius:0px;background-color: #FFFAF7 ">Адрес</button>
+                        <button class="btn btn-light " style="width: 100%;border-radius:0px;background-color: #FFFAF7 ">Детали профиля</button>
+                        <button class="btn  btn-light " href="JavaScript:void(0)"
+                                onclick="document.getElementById('logoutForm').submit()" style="width: 100%;border-radius:0px ">Выйти
+                        </button>
+                        <form th:action="@{'/signout'}" method="post" id="logoutForm">
+                        </form>
+                    </div>
+                </div>
+                <div style="width: 75% ;padding: 10px 30px">
+                    <div style="color:#7c7c7c; ">
+                        <p >Добро пожаловать, <span th:text="${currentUser.full_name}"></span> (не <span
+                                th:text="${currentUser.full_name}"></span> ?)
+                            <a href="JavaScript:void(0)"
+                               onclick="document.getElementById('logoutForm').submit()">Выйти</a></p>
+                        <p>Из главной страницы аккаунта вы можете посмотреть ваши <a th:href="@{'/profile/orders'}">
+                            недавние заказы </a> , настроить <a th:href="@{'/profile/address'}">платежный
+                            адрес и адрес доставки</a> , <a th:href="@{'/profile/settings'}">изменить пароль и основную информацию.</a> а также </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</div>
+</body>
+<script type="text/javascript" th:src="@{'/js/bootstrap.bundle.js'}"></script>
+</html>

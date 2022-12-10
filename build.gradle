@@ -2,11 +2,31 @@ plugins {
 	id 'org.springframework.boot' version '2.7.5'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 	id 'java'
+	id 'checkstyle'
 }
 
 group = 'kz.narxoz'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
+
+
+
+apply plugin: 'checkstyle'
+checkstyle {
+	toolVersion '7.8.1'
+	configFile file("config/checkstyle/checkstyle.xml")
+}
+
+checkstyleMain {
+	source = 'src/main/java'
+}
+
+checkstyleTest {
+	source = 'src/test/java'
+}
+
+
+
 
 configurations {
 	compileOnly {
@@ -19,18 +39,26 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 	compileOnly 'org.projectlombok:lombok'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	// https://mvnrepository.com/artifact/commons-codec/commons-codec
+	implementation group: 'commons-codec', name: 'commons-codec', version: '1.15'
+	// https://mvnrepository.com/artifact/commons-io/commons-io
+	implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
+// https://mvnrepository.com/artifact/nz.net.ultraq.thymeleaf/thymeleaf-layout-dialect
+	implementation group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '3.1.0'
+
+
 }
 
 tasks.named('test') {
