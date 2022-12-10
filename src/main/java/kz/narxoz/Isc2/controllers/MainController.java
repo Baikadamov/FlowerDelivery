@@ -178,8 +178,6 @@ public class MainController {
     ) {
       try {
         String picName = DigestUtils.sha1Hex("picture" + composition);
-        String picName2 = DigestUtils.sha1Hex("picture" + description);
-        String picName3 = DigestUtils.sha1Hex("picture" + price);
 
         byte[] bytes = file.getBytes();
         Path path = Paths.get(uploadPath + picName + ".jpg");
